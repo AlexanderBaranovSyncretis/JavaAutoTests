@@ -43,6 +43,6 @@ public class TestTest extends DriverFactory {
                 .orElseThrow(() -> new Error("No products to sale"))
                 .findElement(zoom);
         System.out.println(zoomable);
-        System.out.println(driver.findElement(By.cssSelector("#box-manufacturer > div > ul > li:nth-child(2) > a.link > div.image-wrapper > div")));
+
     }
 }
