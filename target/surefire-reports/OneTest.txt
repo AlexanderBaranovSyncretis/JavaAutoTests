@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: OneTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 13.609 s <<< FAILURE! - in OneTest
+logIn(OneTest)  Time elapsed: 13.494 s  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<[?????]> but was:<[????]>
+	at OneTest.logIn(OneTest.java:103)
+
