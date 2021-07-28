@@ -18,9 +18,6 @@ public class UserAddPage {
 
     public HomePage getTable(Person person) {
         List<WebElement> inputFields = driver.findElements(tableOfFields);
-//        inputFields.get(0).sendKeys(person.getName());
-//        inputFields.get(1).sendKeys(person.getEmail());
-//        inputFields.get(2).sendKeys(person.getPassword());
         for (int count = 0; count < 3; count++) {
             if (count == 1) {
                 inputFields.get(count).sendKeys(person.getEmail());
