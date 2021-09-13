@@ -1,57 +1,45 @@
 package uI;
 
-import pages.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import utils.DriverFactory;
+import uI.pages.FoundUser;
+import uI.pages.HomePage;
+import uI.pojos.SimpleUser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+public class TwoTest extends UITestBase {
 
-public class TwoTest extends DriverFactory {
+    private static WebDriver driver;
+    private static final String url = URL;
+    private static final String email = MANAGER_EMAIL;
+    private static final String password = MANAGER_PASSWORD;
+    private static HomePage homePage;
 
-    WebDriver driver;
-    Person person;
-    FoundUser foundUser;
-    String url;
-    String email = "manager@mail.ru";
-    String password = "1";
-    boolean isFlag = false;
-    String genEmail;
-    private HomePage homePage;
-
-    @Before
+    @BeforeEach
     public void setUp() {
         driver = super.createDriver();
-        url = "http://users.bugred.ru/";
         driver.get(url);
-        assertEquals(url, driver.getCurrentUrl());
-        assertEquals("Users", driver.getTitle());
+
+        Assertions.assertEquals(url, driver.getCurrentUrl());
+        Assertions.assertEquals("Users", driver.getTitle());
         homePage = new HomePage(driver)
                 .comeInButton()
                 .signInForm(email, password);
     }
 
-    @After
+    @AfterEach
     public void shutDown() {
-        if (isFlag) {
-            FoundUser delUser = new FoundUser();
-            if (delUser.deleteUserByManager(driver, person.getEmail())) {
-                isFlag = false;
-            }
-        }
         driver.close();
     }
 
     @Test
+    @DisplayName("create user by manager test")
     public void createUser() {
-        UserGenerator userGen = new UserGenerator();
-        person = userGen.userGenerator();
-        homePage.addUserButton().getTable(person);
-        foundUser = new FoundUser();
-        isFlag = true;
-        assertEquals(person.getEmail(), foundUser.foundUserInTable(driver, person.getEmail()));
+        SimpleUser simpleUser = UserGenerator.userGenerator();
+        homePage.addUserButton().getTable(simpleUser);
+
+        Assertions.assertEquals(simpleUser.getEmail(),
+                new FoundUser().foundUserInTable(driver, simpleUser.getEmail()));
+
+        deleteUser(simpleUser.getEmail());
     }
 }

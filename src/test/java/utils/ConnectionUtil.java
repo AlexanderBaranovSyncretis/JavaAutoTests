@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import static rest.PropHelper.properties;
+import static rest.utils.PropHelper.properties;
 
 public class ConnectionUtil {
     private ConnectionUtil connectionUtil = null;
